@@ -8,8 +8,9 @@ namespace PracticeAndRetraining
         static void Main(string[] args)
         {
             //// Function that takes in a number with an unknown number of digits and
-            ////      returns an array of that number's digits but reversed.
-            ////      ex. (input => output):  65432 => [2,3,4,5,6] 
+            ////  returns an array of that number's digits but reversed.
+            ////  ex. (input => output):  65432 => [2,3,4,5,6]
+            //
             //static int[] Digitize(long n)
             //{
             //    string numAsString = n.ToString();
@@ -32,30 +33,55 @@ namespace PracticeAndRetraining
 
             /////////////////////////////////////////////
             ///
-            // Function that takes in an integer, squares each digit, concatenates
-            //  the result into one and returns an integer
-            static int SquareDigits(int n)
-            {
-                var stringN = n.ToString();
-                List<int> digits = new();
+            //// Function that takes in an integer, squares each digit, concatenates
+            ////  the result into one and returns an integer.
+            //
+            //static int SquareDigits(int n)
+            //{
+            //    var stringN = n.ToString();
+            //    List<int> digits = new();
 
-                foreach (var charDigit in stringN)
-                {
-                    int digit = (int)charDigit - '0';
-                    digits.Add(digit * digit);
-                }
+            //    foreach (var charDigit in stringN)
+            //    {
+            //        int digit = (int)charDigit - '0';
+            //        digits.Add(digit * digit);
+            //    }
 
-                return Convert.ToInt32(string.Join("", digits));
-            }
+            //    return Convert.ToInt32(string.Join("", digits));
+            //}
 
-            int example = 9119;
+            //int example = 9119;
 
-            SquareDigits(example);
+            //SquareDigits(example);
 
             /////////////////////////////////////////////
             ///
             // Function to check if word is an isogram by taking in a string of letters, checking for
-            //  repeating letters, if none returning true, otherwise returning false
+            //  repeating letters, ignoring letter case (ie. lowerCase = upperCase), if none returning true,
+            //  otherwise returning false.
+            //
+            static bool IsIsogram(string str)
+            {
+                bool isIsogram = true;
+                str = str.ToLower();
+
+                foreach (char s in str)
+                {
+                    string modStr = str.Remove(str.IndexOf(s), 1);                    
+                    if (modStr.Contains(s))
+                    {
+                        isIsogram = false;  break;
+                    }
+                }
+                
+                return isIsogram;
+            }
+
+            IsIsogram("Dermatoglyphics"); //true
+            IsIsogram("isogram");         //true
+            IsIsogram("moose");           //false
+            IsIsogram("moOse");           //false
+            
 
         }
     }
