@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace PracticeAndRetraining
 {
@@ -88,23 +89,30 @@ namespace PracticeAndRetraining
             // is the number of times you must multiply the digits in num until you reach a single digit.
             // ex. (Input --> Output)
             //        39  --> 3  (because 3*9 = 27, 2*7 = 14, 1*4 = 4 and 4 has only one digit)
-
             static int Persistence(long n)
             {
-                var nAsArray = n.ToString().ToArray();
-                
+                var nAsArray = n.ToString();
+                int loopCount = 0;
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
                 while (nAsArray.Length > 1)
                 {
-                    var tempResult = 1;
-                    for (int i = 0; i < nAsArray.Length - 1; i++)
-                    {
-                        tempResult *= (int)( nAsArray[i] - '0');                        
+                    var tempResult = 1; //variable to hold the result of each multiplication as it rolls through all the digits
+                    for (int i = 0; i < nAsArray.Length; i++)
+                    {                        
+                        //tempResult *= Int32.Parse( nAsArray[i].ToString());
+                        tempResult *= (int)(nAsArray[i] - '0'); //much faster than the .Parse conversion method
                     }
-                    nAsArray = tempResult.ToString().ToArray();                    
+                    nAsArray = tempResult.ToString(); //make result the new array to check
+                    loopCount++;
                 }
-
-                int result = nAsArray[0]; 
-                Console.WriteLine(result);
+               
+                stopwatch.Stop();
+                Console.WriteLine(loopCount);
+                
+                int result = loopCount;
                 return result;
             }
             Persistence(999); //should return 4
