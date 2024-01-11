@@ -60,29 +60,54 @@ namespace PracticeAndRetraining
             //  repeating letters, ignoring letter case (ie. lowerCase = upperCase), if none returning true,
             //  otherwise returning false.
             //
-            static bool IsIsogram(string str)
+            //static bool IsIsogram(string str)
+            //{
+            //    bool isIsogram = true;
+            //    str = str.ToLower();
+
+            //    foreach (char s in str)
+            //    {
+            //        string modStr = str.Remove(str.IndexOf(s), 1);                    
+            //        if (modStr.Contains(s))
+            //        {
+            //            isIsogram = false;  break;
+            //        }
+            //    }
+
+            //    return isIsogram;
+            //}
+
+            //IsIsogram("Dermatoglyphics"); //true
+            //IsIsogram("isogram");         //true
+            //IsIsogram("moose");           //false
+            //IsIsogram("moOse");           //false
+
+            /////////////////////////////////////////////
+            ///
+            // Function that takes in a positive parameter num and returns its multiplicative persistence, which
+            // is the number of times you must multiply the digits in num until you reach a single digit.
+            // ex. (Input --> Output)
+            //        39  --> 3  (because 3*9 = 27, 2*7 = 14, 1*4 = 4 and 4 has only one digit)
+
+            static int Persistence(long n)
             {
-                bool isIsogram = true;
-                str = str.ToLower();
-
-                foreach (char s in str)
-                {
-                    string modStr = str.Remove(str.IndexOf(s), 1);                    
-                    if (modStr.Contains(s))
-                    {
-                        isIsogram = false;  break;
-                    }
-                }
+                var nAsArray = n.ToString().ToArray();
                 
-                return isIsogram;
+                while (nAsArray.Length > 1)
+                {
+                    var tempResult = 1;
+                    for (int i = 0; i < nAsArray.Length - 1; i++)
+                    {
+                        tempResult *= (int)( nAsArray[i] - '0');                        
+                    }
+                    nAsArray = tempResult.ToString().ToArray();                    
+                }
+
+                int result = nAsArray[0]; 
+                Console.WriteLine(result);
+                return result;
             }
-
-            IsIsogram("Dermatoglyphics"); //true
-            IsIsogram("isogram");         //true
-            IsIsogram("moose");           //false
-            IsIsogram("moOse");           //false
-            
-
+            Persistence(999); //should return 4
         }
     }
 }
