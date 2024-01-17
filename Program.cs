@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks.Dataflow;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace PracticeAndRetraining
 {
@@ -187,7 +189,93 @@ namespace PracticeAndRetraining
 
             //Console.WriteLine(diagonalDifference(arr));
 
+            /////////////////////////////////////////////
+            /////
+            ////  function that takes an integer as input, and returns the number of bits that are equal to one in the 
+            ////     binary representation of that number.
 
+            //static int CountBits(int n)
+            //{
+            //    string asBinary = Convert.ToString(n, 2);
+            //    List<int> asIntArr = new List<int>();
+            //    foreach (char c in asBinary)
+            //    {
+            //        if (c == '1')
+            //        {
+            //            asIntArr.Add(c);
+            //            continue;
+            //        }
+            //        else
+            //        {
+            //            continue;
+            //        }
+            //    }
+            //    Console.WriteLine(asIntArr.Count);
+            //    int result = asIntArr.Count;
+            //    return result;
+            //}
+
+            //CountBits(42);
+
+            /////////////////////////////////////////////
+            /////
+            ////  Create a function taking a positive integer between 1 and 3999 (both included) 
+            ////    as its parameter and returning a string containing the Roman Numeral 
+            ////    representation of that integer.
+
+            //static string Solution(int n)
+            //{
+            //    Dictionary<int, string> romanMap = new Dictionary<int, string>()
+            //    {
+            //        {1000,"M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100,"C"}, {90, "XC"}, {50, "L"}, {40, "XL"}, {10, "X"}, {9, "IX"}, {5, "V"}, {4, "IV"}, {1, "I"}
+            //    };
+
+            //    List<string> inRoman = new();
+            //    int number = n;
+
+            //   foreach (var roman in romanMap)
+            //    {
+            //        while (number / roman.Key >= 1)
+            //        {
+            //            inRoman.Add(roman.Value);
+            //            number -= roman.Key;                       
+            //        }
+            //    }
+            //    Console.WriteLine(string.Join("", inRoman));
+            //    string romanConversion = (string.Join("", inRoman));
+
+
+            //    return romanConversion;
+            //}
+            //Solution(1666);
+
+            /////////////////////////////////////////////
+            /////
+            //// function that takes an array of ints and a target number. It should find two 
+            ///     different items in the array that, when added together, give the target value. 
+            ///     The indices of these items should then be returned in a tuple / list like so: (index1, index2)
+            static int[] TwoSum(int[] numbers, int target)
+            {
+                int[] indices = new int[2];
+
+
+                for (int i = 0; i < numbers.Length; i++)
+                {
+                    
+                    if (numbers.Contains(target - numbers[i]) &&
+                        i != Array.IndexOf(numbers, (target - numbers[i])))
+                    {
+                        indices[0] = i;
+                        indices[1] = Array.IndexOf(numbers, (target - numbers[i]));
+                        Console.WriteLine(string.Join(", ", indices));
+                        return indices;
+                    }
+
+                }
+
+                return indices;
+            }
+            TwoSum(new[] { 3,2,4 }, 6);
         }
     }
 }
