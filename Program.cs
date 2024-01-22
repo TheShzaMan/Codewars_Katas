@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks.Dataflow;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Reflection.Metadata.Ecma335;
 
 namespace PracticeAndRetraining
 {
@@ -254,28 +255,55 @@ namespace PracticeAndRetraining
             //// function that takes an array of ints and a target number. It should find two 
             ///     different items in the array that, when added together, give the target value. 
             ///     The indices of these items should then be returned in a tuple / list like so: (index1, index2)
-            static int[] TwoSum(int[] numbers, int target)
+            //static int[] TwoSum(int[] numbers, int target)
+            //{
+            //    int[] indices = new int[2];
+
+
+            //    for (int i = 0; i < numbers.Length; i++)
+            //    {
+
+            //        if (numbers.Contains(target - numbers[i]) &&
+            //            i != Array.IndexOf(numbers, (target - numbers[i])))
+            //        {
+            //            indices[0] = i;
+            //            indices[1] = Array.IndexOf(numbers, (target - numbers[i]));
+            //            Console.WriteLine(string.Join(", ", indices));
+            //            return indices;
+            //        }
+
+            //    }
+
+            //    return indices;
+            //}
+            //TwoSum(new[] { 3,2,4 }, 6);
+
+            /////////////////////////////////////////////
+            /////
+            //// Implement a difference function, which subtracts one list from another and returns the result.
+            ///    It should remove all values from list a, which are present in list b keeping their order.
+            ///    ex. Kata.ArrayDiff(new int[] {1, 2, 2, 2, 3}, new int[] {2}) => new int[] {1, 3}
+            static int[] ArrayDiff(int[] a, int[] b)
             {
-                int[] indices = new int[2];
+               // List<int> listToCheck = a.ToList();
+                List<int> resultList = a.ToList();
 
+                if (b.Length == 0) return a;
 
-                for (int i = 0; i < numbers.Length; i++)
+                foreach(int element in b)
                 {
-                    
-                    if (numbers.Contains(target - numbers[i]) &&
-                        i != Array.IndexOf(numbers, (target - numbers[i])))
-                    {
-                        indices[0] = i;
-                        indices[1] = Array.IndexOf(numbers, (target - numbers[i]));
-                        Console.WriteLine(string.Join(", ", indices));
-                        return indices;
-                    }
-
+                    resultList = resultList
+                        .Where(x => x != element).ToList();
                 }
 
-                return indices;
+                Console.WriteLine(String.Join(", ", resultList));
+                return resultList.ToArray();
             }
-            TwoSum(new[] { 3,2,4 }, 6);
+
+           // ArrayDiff(new int[] { 1, 2, 2, 2, 3 }, new int[] { 2 });
+            //ArrayDiff(new int[] { 1, 2, 2 }, new int[] { });
+            ArrayDiff(new int[] { 1, 2, 3 }, new int[] { 1, 2 });
+
         }
     }
 }
