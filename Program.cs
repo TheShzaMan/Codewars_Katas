@@ -283,27 +283,42 @@ namespace PracticeAndRetraining
             //// Implement a difference function, which subtracts one list from another and returns the result.
             ///    It should remove all values from list a, which are present in list b keeping their order.
             ///    ex. Kata.ArrayDiff(new int[] {1, 2, 2, 2, 3}, new int[] {2}) => new int[] {1, 3}
-            static int[] ArrayDiff(int[] a, int[] b)
-            {
-               // List<int> listToCheck = a.ToList();
-                List<int> resultList = a.ToList();
+            //static int[] ArrayDiff(int[] a, int[] b)
+            //{
+            //   // List<int> listToCheck = a.ToList();
+            //    List<int> resultList = a.ToList();
 
-                if (b.Length == 0) return a;
+            //    if (b.Length == 0) return a;
 
-                foreach(int element in b)
-                {
-                    resultList = resultList
-                        .Where(x => x != element).ToList();
-                }
+            //    foreach(int element in b)
+            //    {
+            //        resultList = resultList
+            //            .Where(x => x != element).ToList();
+            //    }
 
-                Console.WriteLine(String.Join(", ", resultList));
-                return resultList.ToArray();
-            }
+            //    Console.WriteLine(String.Join(", ", resultList));
+            //    return resultList.ToArray();
+            //}
 
-           // ArrayDiff(new int[] { 1, 2, 2, 2, 3 }, new int[] { 2 });
-            //ArrayDiff(new int[] { 1, 2, 2 }, new int[] { });
-            ArrayDiff(new int[] { 1, 2, 3 }, new int[] { 1, 2 });
+            /////////////////////////////////////////////
+            /////
+            ////  Same result as previous function ArrayDiff(int[] a, int[] b), but much more consise and effecient.
+            //static int[] ArrayDiff(int[] a, int[] b)
+            //{
+            //    Console.WriteLine(String.Join(", ",a
+            //        .Where((n) => !b.Contains (n))
+            //        .ToArray()));
+            //    return a
+            //        .Where((n) => !b.Contains(n))
+            //        .ToArray();
+            //}
+            //ArrayDiff(new int[] { 1, 2, 2, 2, 3 }, new int[] { 2 });//{1,3}
+            //ArrayDiff(new int[] { 1, 2, 2 }, new int[] { }); //{1,2,2}
+            //ArrayDiff(new int[] { 1, 2, 3 }, new int[] { 1, 2 }); //3
 
+            /////////////////////////////////////////////
+            /////
+            ////  
         }
     }
 }
