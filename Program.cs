@@ -5,6 +5,8 @@ using System.Threading.Tasks.Dataflow;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Reflection.Metadata.Ecma335;
+using System.Dynamic;
+using System.Runtime.CompilerServices;
 
 namespace PracticeAndRetraining
 {
@@ -318,7 +320,229 @@ namespace PracticeAndRetraining
 
             /////////////////////////////////////////////
             /////
-            ////  
+            ////   [ 30, 20, 25 ]
+            //static int findMinWeight(List<int> weights, int d)
+            //{
+            //    int finalWeight = 0;
+            //    List<int> endOfDayWeights = weights;
+
+            //    for (int i = 0; i < d; i++)
+            //    {
+            //        endOfDayWeights.Add(endOfDayWeights.Max()/2);
+            //        endOfDayWeights.Remove(endOfDayWeights.Max());
+            //    }
+
+            //    finalWeight = endOfDayWeights.Sum();    
+            //    Console.WriteLine(finalWeight);
+
+            //    return finalWeight;
+
+            //}
+            //findMinWeight(new List<int>() { 30, 20, 25 }, 4);
+            //findMinWeight(new List<int>() { 2, 4 }, 1);
+
+            /////////////////////////////////////////////
+            /////
+            //// Save the Princess Game: input is an integer 'n' that denotes the size of the grid followed by an n x n grid
+            ///   of dashes in each space except one corner will have the princess 'p' and the cener 'm' is your character's 
+            ///     starting spot.  Write function that finds the princess and reaches her using directions (left, right, up, down) to 
+            ///     move 'm' by one spot until reaching the 'p'.  goal is in the least amount of moves.  Result is the directions followed by \n 
+            ///     to line break.  
+            ///     example output: 
+            ///     DOWN
+            ///     LEFT
+            
+            static void displayPathtoPrincess(int n, String[] grid)
+            {
+                var corners = new List<(int row, int col)>
+                {
+                    ( 0, 0),
+                    ( 0, n - 1),
+                    ( n - 1, 0),
+                    ( n - 1, n - 1)
+                };
+                var pPosition = new List<(int row, int col)>();
+                List<string> moves = new();
+                foreach (var c in corners)
+                {
+                    if (grid[c.row][c.col].ToString() == "p")
+                    {
+                        pPosition.Add(c);
+                        var p = pPosition[0];
+                        if (p.row == 0 && p.col == 0)
+                        {
+                            for (int i = 0; i <= (n / 2) - 0.5; i++)
+                            {
+                                moves.Add("UP");
+                                moves.Add("LEFT");
+                            }
+                        }
+                        if (p.row == n - 1 && p.col == n - 1)
+                        {
+                            for (int i = 0; i <= (n / 2) - 0.5; i++)
+                            {
+                                moves.Add("DOWN");
+                                moves.Add("RIGHT");
+                            }
+                        }
+                        if (p.row == n - 1 && p.col == 0)
+                        {
+                            for (int i = 0; i <= (n / 2) - 0.5; i++)
+                            {
+                                moves.Add("DOWN");
+                                moves.Add("LEFT");
+                            }
+                        }
+                        if (p.row == 0 && p.col == n - 1)
+                        {
+                            for (int i = 0; i <= (n / 2) - 0.5; i++)
+                            {
+                                moves.Add("UP");
+                                moves.Add("RIGHT");
+                            }
+                        }
+
+                    }
+                }
+                string result = String.Join("\n", moves);
+                Console.WriteLine(result);
+            }
+            //displayPathtoPrincess(5, new string[5] {"----p", "-----", "--m--", "-----", "-----" });
+
+            /////////////////////////////////////////////
+            /////
+            ////
+
+            
+            RunTests(Int32.Parse("3"));
+
+            // sort to ascending first, then
+            // kSum[0] / K = A[0], 
+            // A[1] = kSum[1] - A[0],
+            // A[2] = kSum[2] - A[1],
+            // A[3] = kSum[3] - A[2],
+            // A[4] = kSum[4] - A[3],
+            // A[5] = kSum[5] - A[4] 
+            static void RunTests(int T)
+            {
+                //Console.WriteLine(T);
+
+                string[] firstLine = new string[] { "1 3", "2 2", "3 2" }; 
+                string[] kSums = new string[] {"3", "12 34 56", "2 3 4 4 5 6" };  //3 4 5 5 6 6 7 9 //6 8 13 14 10 15 16 20 21 22
+
+                //DONT ADJUST ANYTHING FROM HERE TO END OF RUNTESTS()
+                for (int i = 2; i < T; i++)
+                {
+                    Console.WriteLine(RestoreA(
+                        firstLine[i],
+                        kSums[i]
+                    ));
+                    
+                }
+                // (newS[i] / K) - A[i - 1]
+                
+            }
+            static string RestoreA(string firstLine, string kSums)
+            {
+                var N = (int)(firstLine[0] - '0');
+                var K = (int)(firstLine[2] - '0');
+                var S = kSums.Split(' ')
+                    .Select(kSum => Int32.Parse(kSum))
+                    .ToArray();
+                int[] A = new int[N];
+
+               // var props = new List<object>() { N, K, S };
+                Array.Sort(S);
+
+                int aCount = 0;
+                HashSet<int> sSet = new HashSet<int>(S);
+                //int[] newS = new int[sSet.Count]; 
+                List<int> newS = new List<int>();
+                newS = sSet.ToList();
+
+
+                // A[0] += newS[0] / K;
+                /// A[N - 1] += newS[newS.Count() - 1] / K;
+                //A[0] = newS[0] - (N - 1) * K;
+                //A[N - 1] = newS[newS.Count() - 1] - (N - 1) * K;
+                /// newS.Remove(newS.ElementAt(0));
+                ///  newS.Remove(newS.ElementAtOrDefault(newS.Count() - 1));
+
+
+                //Console.WriteLine(K);
+                //Console.WriteLine(S[S.Length - 1]);
+                //Console.WriteLine(A[N - 1]);
+
+
+
+                for (int i = 0; i <= (N - 1) / 2; i++)
+
+                {
+                    var sFirst = newS[0];
+                    var sLast = newS[newS.Count() - 1];
+                    Console.WriteLine(String.Join(" ", newS));
+                    Console.WriteLine(sFirst + " | " + sLast);
+                    //Console.WriteLine($"\n\n\t{A[i + 1]}  =  {sFirst}  -  {A[0]}\t\t\t{A[N - (i + 2)]}  =  {sLast}  -  {A[N - (i + 1)]} " +
+                      //  $"\nA[i + 1] = sFirst - A[0]\tA[N - (i + 2)] = sLast - A[N - (i + 2)]\n\n");
+                    // A[i] += (sFirst - A[i - 1]);
+                    if (N == 1) 
+                    { 
+                        A[i] = newS[i] / K; 
+                        break; 
+                    }
+                    else if (i == 0)
+                    {
+                        A[i] = newS[i] / K;
+                        A[N - 1] += sLast / K;
+
+                    }                    
+                    else if (i != 0) 
+                    {   
+                        A[i] = ((sFirst / K) - A[i - 1]) + sFirst / K;
+                        A[N - (i + 1)] = (sLast - A[N - (i)]);
+                    }
+                    newS.Remove(sFirst);
+                    newS.Remove(sLast);
+
+                    Console.WriteLine(String.Join(" ", newS));
+
+
+                }
+                //{
+
+
+                //}
+                String testResults = String.Join(" ", A);
+                //Console.WriteLine(testResults);
+                return testResults;
+                //Console.WriteLine(String.Join())
+                //Console.WriteLine(N + " " + K + "\n" + String.Join(" ", sortedKSums));
+            }
+            //A = 1 2 3 4 5
+            //S 3sum = 3 4 5 5 6 7 9
+            //S 2sum = 2 3 4 5 6 7 8 9 10
+
+            //       { A[1], A[2], A[3], A[4] }
+
+            //     {A[1] + A[1], A[1] + A[2], A[1] + A[3], A[1] + A[4],
+            //
+            //      A[2] + A[2], A[2] + A[3], A[2] + A[4],
+            //
+            //      A[3] + A[3], A[3] + A[4], 
+            //      
+            //      A[4] + A[4]}
+            //     
+            //    0  A[lastA - i] = S[lastS - i] - A[lastA - j];
+            //    1  A[lastA - i] = S[lastS - i] - A[lastA - j];
+
+
+            //     { A[1] * 2 + A[1], A[1] * 2 + A[2], A[1] * 2 + A[3] }
+            // A = 3 5 10 11
+
+            // N = 4, k = 2
+            //A = 3 5 10 11     
+            // S = 6 8 10 13 14 15 16 20 21 22
+            //((S[i]/K)-A[i-1]) + S[i]/K
         }
     }
 }
