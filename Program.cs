@@ -14,6 +14,44 @@ namespace PracticeAndRetraining
     {
         static void Main(string[] args)
         {
+            static string doMath()
+            {
+                int a;
+                int b;
+                string oper8or = "";
+                string result = "";
+                
+                Console.WriteLine("\n\t\tEZ Peezy Math Machine\n\nfirst number:");
+
+                while (!int.TryParse(Console.ReadLine(), out a)) { Console.WriteLine("incorrect format. enter a number"); }
+                Console.WriteLine("\nchoose:  + | - | * | / ");
+                while (oper8or == "") 
+                { 
+                    string input = Console.ReadLine();
+                    if (input == "+" || input == "-" || input == "*" || input == "/")
+                    {
+                        oper8or = input;
+                        Console.WriteLine($"\n\nsecond number: \n {a} {oper8or} _?_");
+                    }
+                    else { Console.WriteLine("incorrect format. choose +, -, * or /\n then hit enter"); }
+                }
+                while (!int.TryParse(Console.ReadLine(), out b)) { Console.WriteLine("incorrect format. enter a number"); };
+                string[] stringInput = Console.ReadLine().Split(" ");
+
+                switch (oper8or)
+                {
+                    case "+": result += a + b; break;
+                    case "-": result += a - b; break;
+                    case "*": result += a * b; break;
+                    case "/": result += a / b; break;
+                    default: Console.WriteLine(); ; break;
+                }
+                string solution = $"\n{a} {oper8or} {b} = {result}";
+                Console.WriteLine(solution);
+                return solution;
+            }
+            doMath();
+
             /////////////////////////////////////////////
             ////
             //// Function that takes in a number with an unknown number of digits and
@@ -414,7 +452,7 @@ namespace PracticeAndRetraining
             ////
 
             
-            RunTests(Int32.Parse("3"));
+            //RunTests(Int32.Parse("3"));
 
             // sort to ascending first, then
             // kSum[0] / K = A[0], 
@@ -518,6 +556,7 @@ namespace PracticeAndRetraining
                 //Console.WriteLine(String.Join())
                 //Console.WriteLine(N + " " + K + "\n" + String.Join(" ", sortedKSums));
             }
+            ////  NOTES FOR FUNCTION ABOVE  ///\\\///\\\
             //A = 1 2 3 4 5
             //S 3sum = 3 4 5 5 6 7 9
             //S 2sum = 2 3 4 5 6 7 8 9 10
@@ -543,6 +582,26 @@ namespace PracticeAndRetraining
             //A = 3 5 10 11     
             // S = 6 8 10 13 14 15 16 20 21 22
             //((S[i]/K)-A[i-1]) + S[i]/K
+
+            /////////////////////////////////////////////
+            ///// Conditionals practice
+            ////
+            int N = Convert.ToInt32(Console.ReadLine().Trim());
+            HashSet<int> weirdSet = new HashSet<int>();
+            for (int i = 6; i < 21; i++) 
+            {
+                if (i % 2 == 0) weirdSet.Add(i);                 
+            }
+
+            if (N % 2 != 0 || weirdSet.Contains(N))
+            {
+                Console.WriteLine("Weird");
+            }
+            else
+            {
+                Console.WriteLine("Not Weird");
+            }
+            
         }
     }
 }
